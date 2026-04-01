@@ -1,9 +1,9 @@
 ---
 name: research-companion
 description: >-
-  Strategic research companion — brainstorm, evaluate, and decide on research directions. TRIGGER when the user wants to brainstorm research, evaluate research ideas, do project triage, or explore a problem space. Orchestrates brainstormer, idea-critic, and research-strategist agents through a 6-phase pipeline: Seed → Diverge → Evaluate → Deepen → Frame → Decide. Includes Carlini's conclusion-first test.
+  Strategic research companion for biology — brainstorm, evaluate, and decide on research directions, or critique an existing document (manuscript, grant, proposal, data summary). TRIGGER when the user wants to brainstorm research ideas, evaluate hypotheses, explore a problem space, or get adversarial critique of a document. Orchestrates brainstormer, idea-critic, research-strategist, and document-critic agents. Tuned for immunology, neuroscience, cell science, and neural dynamics.
 allowed-tools: Agent, Read, Glob, Grep, WebSearch, WebFetch
-argument-hint: [topic or problem space description]
+argument-hint: [topic / hypothesis / file path to manuscript or grant]
 ---
 
 # Research Companion — Structured Ideation Session
@@ -25,14 +25,34 @@ Most brainstorming produces lists of ideas that go nowhere. This session is diff
 | Agent | `subagent_type` | Role in Session |
 |-------|-----------------|-----------------|
 | **Brainstormer** | `brainstormer` | Phase 2: Generate ideas, cross-field connections, challenge assumptions |
-| **Idea Critic** | `idea-critic` | Phase 3: Stress-test top ideas along 7 dimensions |
-| **Research Strategist** | `research-strategist` | Phase 4: Competitive landscape, timing, positioning |
+| **Idea Critic** | `idea-critic` | Phase 3: Stress-test top ideas along 8 dimensions including experimental design |
+| **Research Strategist** | `research-strategist` | Phase 4: Competitive landscape, timing, positioning, experimental design & data strategy |
+| **Document Critic** | `document-critic` | Phase 0 (alternate entry): Adversarial critique of manuscripts, grants, proposals, data summaries |
 
 If the user also has the **Academic Writing Agents** plugin installed, you may additionally use:
 - `research-analyst` — for deeper literature context in Phase 4
 - `paper-crawler` — for systematic competitive landscape search in Phase 4
 
 ## Session Flow
+
+### Phase 0: ROUTE — Determine Entry Mode
+
+**First, determine which session type the user needs:**
+
+**Document Critique Mode** — triggered when the user provides:
+- A file path to a manuscript, grant, proposal, or data summary
+- Pasted text of a document
+- Phrases like "critique this," "find holes in," "review this grant," "what's missing from this paper"
+
+→ If Document Critique Mode: deploy the **document-critic** agent directly with the document content. Skip Phases 1-6 and present the structured critique. After critique, offer: "Would you like to brainstorm how to address any of these gaps, or explore a new direction suggested by the critique?"
+
+**Ideation Mode** — triggered when the user provides:
+- A topic, hypothesis, or problem space (not a document)
+- Questions like "is this interesting?", "has this been done?", "what should I work on?", "why should we invest in this?"
+
+→ Proceed to Phase 1.
+
+---
 
 ### Phase 1: SEED — Understand the Problem Space
 
@@ -46,10 +66,12 @@ If the user also has the **Academic Writing Agents** plugin installed, you may a
 
 **Interview (if no prior evaluation or user wants fresh start):**
 
-1. **What's the problem space?** Get the broad area of interest.
-2. **What's bugging you?** What feels wrong, missing, or poorly done in this field? (This is the richest source of good ideas — problems that make you want to "scream" are often problems worth solving.)
-3. **What's your background?** What skills, tools, or perspectives do you bring? (Needed for comparative advantage assessment.)
-4. **Constraints?** Timeline, resources, collaborators, venue targets.
+1. **What's the problem space?** Get the broad biological area of interest — is this immunology, neuroscience, cell biology, neural dynamics, or a cross-cutting question?
+2. **What's bugging you?** What feels wrong, missing, or poorly done in this field? What would you change if you could? (This is the richest source of good ideas — problems that make you want to "scream" are often problems worth solving.)
+3. **What's your background?** What skills, tools, model systems, or data modalities do you bring? (Needed for comparative advantage assessment — RS7.) Are you primarily experimental, computational, or both?
+4. **What data do you have or could you access?** Existing datasets, ongoing experiments, access to specific tissue types or cohorts, Allen Institute internal resources. This shapes feasibility immediately.
+5. **Constraints?** Timeline, resources, collaborators, target journals or grants. Is this for a new project, an existing project decision, or a grant application?
+6. **Community or field impact framing?** Is the goal a focused mechanistic finding, a community resource (atlas, dataset, tool), or both? (RS9: Open Science Value)
 
 Keep this short — 3-5 questions max. Skip any the user's input already answers.
 
@@ -62,9 +84,10 @@ If the user provided a clear and detailed description in $ARGUMENTS, you may ski
 **Goal:** Produce a diverse set of research directions, with emphasis on surprising and non-obvious ideas.
 
 Deploy the **brainstormer** agent with:
-- The problem space from Phase 1
-- The researcher's background and constraints
-- Explicit instruction to prioritize cross-field connections and assumption-challenging
+- The problem space from Phase 1, including biological domain (immunology / neuroscience / cell biology / neural dynamics)
+- The researcher's background, skills, and available data
+- Explicit instruction to prioritize cross-field connections from distant domains (physics, engineering, CS, math, economics, ecology) — not just adjacent biology fields
+- The researcher's constraints and community/open-science goals
 
 Present the results organized by type:
 - Cross-field connections
@@ -82,7 +105,8 @@ Ask the researcher to **star their top 2-3 ideas** (or add their own). Don't pro
 
 Deploy **idea-critic** agents — one per selected idea, in parallel. Each gets:
 - The idea description
-- The researcher's background and constraints
+- The researcher's background, data access, and constraints
+- The biological domain and relevant model systems
 - Any relevant context from Phase 1
 
 Present the evaluations side by side in a comparison table:
@@ -97,6 +121,7 @@ Present the evaluations side by side in a comparison table:
 | Competition | ... | ... | ... |
 | Nugget | ... | ... | ... |
 | Narrative | ... | ... | ... |
+| Experimental Design & Data | ... | ... | ... |
 | **Verdict** | ... | ... | ... |
 ```
 
@@ -109,9 +134,10 @@ Highlight which ideas survived and which were killed. For REFINE verdicts, note 
 **Goal:** Validate the surviving ideas against reality — existing literature, competitive landscape, and timing.
 
 For each idea with a PURSUE or REFINE verdict, deploy the **research-strategist** in parallel:
-- Scooping risk assessment (Mode 5)
+- Scooping risk assessment (Mode 5) — check bioRxiv, medRxiv, NIH Reporter, and major consortium projects
 - Competitive landscape and comparative advantage (Mode 2)
-- Timing assessment (Mode 3)
+- Timing assessment (Mode 3) — including disease relevance, funding landscape, and consortium activity
+- Experimental design and data strategy (Mode 6) — what cohort, assay, or existing public dataset is the right path
 
 If `research-analyst` or `paper-crawler` agents are available, deploy them in parallel to:
 - Check for existing work that overlaps
@@ -217,6 +243,8 @@ After presenting the final verdict, persist the evaluation:
 - **Show your plan.** Before each phase, briefly state what you're about to do and why.
 - **Let the researcher drive.** Present options and recommendations, but the researcher picks which ideas to evaluate and which to pursue.
 - **Don't skip phases.** Each phase serves a purpose. Phase 5 (conclusion-first test) is the most commonly skipped and the most valuable.
+- **Apply biology-specific principles.** RS9 (Open Science Value), RS10 (Experimental Rigor Path), and RS11 (Model System Validity) are as important as RS1-RS8 for biology research.
+- **Cross-field first.** In Phase 2, explicitly push the brainstormer toward domains far outside biology. Biology researchers rarely need help thinking about adjacent biology — they need help seeing connections to physics, engineering, CS, math, and economics.
 - **Be honest in synthesis.** If agents disagree, say so and give your assessment of why.
 - **Keep momentum.** Each phase should take 1-2 exchanges with the user, not 5. Aim to complete a full session in 15-20 minutes.
 

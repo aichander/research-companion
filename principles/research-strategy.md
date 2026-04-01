@@ -79,3 +79,31 @@ You are almost certainly world-best at some specific combination of skills, know
 You control your skill but not when the world needs it. Problems vary in importance depending on the current state of scientific knowledge and practical deployment. Being too early means reviewers reject your premises; being too late means the contribution is incremental. Truly impactful researchers sense when their skills align with emerging importance — and pivot when that alignment shifts.
 
 **Apply when:** Evaluating research directions at a strategic level. Monitor which problems are becoming more important (not just which are currently popular). Consider whether your current focus area is gaining or losing relevance.
+
+---
+
+## D. Biology-Specific Principles
+
+### RS9: Open Science Value
+
+**"Will this generate a community resource — data, atlas, tool, or protocol — that enables research beyond your own lab?"**
+
+In biology, the highest-impact contributions are often not individual mechanistic findings but infrastructure: reference atlases, openly shared datasets, validated reagent panels, computational pipelines. A single-cell atlas used by 500 downstream labs may have more total impact than 50 papers. This is especially true at the scale of projects like the Allen Brain Atlas, Human Cell Atlas, or ImmPort.
+
+**Apply when:** Evaluating whether to invest in large-scale data generation. Ask: if this dataset were made publicly available, how many research questions could it unlock that aren't currently answerable? If the answer is "many," the open science value may justify the project even if your own mechanistic question is narrow.
+
+### RS10: Experimental Rigor Path
+
+**"What is the minimum valid experiment? Can you answer this with existing public data before committing wet lab resources?"**
+
+Biology's timelines are unforgiving — a single experiment can take weeks or months, and a poorly designed one yields ambiguous results. Before designing a new experiment, audit what already exists: public databases (Allen Brain Atlas, Human Cell Atlas, GEO, ImmPort, ENCODE, GTEx, UK Biobank, CZI CELLxGENE) may already contain the data needed to validate or kill the core assumption. When wet lab work is required, identify the riskiest assumption first (RS4) and design the smallest experiment that tests it with adequate statistical power — accounting for biological variance, not just technical variance.
+
+**Apply when:** Designing experiments or evaluating proposals. Flag when a study lacks power analysis accounting for donor-to-donor or sample-to-sample variability. Flag when expensive new data generation is proposed without first checking existing public resources.
+
+### RS11: Model System Validity
+
+**"Does the model system support the biological claim at the right level of complexity?"**
+
+Biology is full of findings that replicate beautifully in cell lines, fail in primary cells, and vanish in vivo. Every model system — immortalized cell line, primary culture, organoid, mouse model, non-human primate, human tissue — makes tradeoffs between tractability and biological fidelity. A claim about human immune function derived entirely from mouse knockouts should be held to a different standard than one validated in primary human tissue. A neural circuit finding in an acute slice preparation may not hold in the intact behaving animal.
+
+**Apply when:** Evaluating the scope of any biological claim. Ask: what is the most complex or physiologically relevant system in which this has been tested? What would change if the experiment were done one level up in complexity? Is the gap between the model system used and the system the claim is about acknowledged and addressed?

@@ -1,10 +1,14 @@
-# Research Companion
+# Research Companion — Biology Edition
 
-**Strategic research thinking agents for [Claude Code](https://docs.anthropic.com/en/docs/claude-code)** — idea evaluation, project triage, and structured brainstorming to help you do research that matters.
+**Strategic research thinking agents for [Claude Code](https://docs.anthropic.com/en/docs/claude-code)** — idea evaluation, project triage, structured brainstorming, and adversarial critique of manuscripts, grants, and proposals.
 
-Most AI writing tools help you *write* papers. This plugin helps you decide *which* papers to write.
+Tuned for **immunology, neuroscience, cell science, and neural dynamics** — with strong emphasis on cross-field connections from physics, engineering, math, CS, and economics, and a dedicated computational methods advisor for large biology datasets.
 
-Inspired by Nicholas Carlini's essay ["How to Win a Best Paper Award"](https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html) — which argues that great research starts with taste, strategic problem selection, honest self-evaluation, and knowing when to kill your darlings.
+Most AI writing tools help you *write* papers. This plugin helps you decide *which* papers to write — and finds the holes in what you've already written.
+
+Inspired by Nicholas Carlini's essay ["How to Win a Best Paper Award"](https://nicholas.carlini.com/writing/2026/how-to-win-a-best-paper-award.html)
+
+Original Skill by [Haiwen Huang](https://github.com/andrehuang/research-companion)
 
 ## The Problem
 
@@ -18,32 +22,37 @@ Researchers don't lack the ability to write papers. They lack a trusted colleagu
 
 This plugin provides that colleague.
 
+## Installation
+
+`claude plugin install https://github.com/aichander/research-companion.git`
+
+Or from a locally cloned folder:
+`claude plugin install /path/to/research-companion`
+
+That's it. The /research-companion skill and all agents are immediately
+available in any Claude Code session.
+
+
 ## What's Inside
 
 ### Agents
 
 | Agent | What it does |
 |-------|-------------|
-| **Idea Critic** | Stress-tests research ideas along 7 dimensions: novelty, impact, timing, feasibility, competitive landscape, the nugget, and narrative potential. Returns a Pursue / Refine / Kill verdict. |
-| **Research Strategist** | Project-level strategic thinking — triage (continue/pivot/kill), comparative advantage mapping, impact forecasting, opportunity cost analysis, and scooping risk assessment. |
-| **Brainstormer** | Enhanced creative brainstormer with explicit focus on cross-field connections, "strategic ignorance" (challenging flawed assumptions the field follows uncritically), and the skeptical-reader test. |
+| **Idea Critic** | Stress-tests research ideas along 8 dimensions: novelty, impact, timing, feasibility, competitive landscape, the nugget, narrative potential, and experimental design & data availability. Returns a Pursue / Refine / Kill verdict. |
+| **Research Strategist** | Project-level strategic thinking — triage (continue/pivot/kill), comparative advantage mapping, impact forecasting, opportunity cost analysis, scooping risk assessment, and experimental design & data strategy. |
+| **Brainstormer** | Creative brainstormer with explicit focus on cross-field connections from distant domains (physics, engineering, CS, math, economics, ecology), challenging flawed biological assumptions, and the skeptical-reader test. |
+| **Document Critic** | Adversarial critique of manuscripts, grants, and proposals — finds gaps, missing controls, overclaiming, model system issues, and surfaces computational methods from other fields that could extract more from your data. |
 
 ### Skill
 
 | Skill | What it does |
 |-------|-------------|
-| `/research-companion` | A structured multi-phase ideation session that orchestrates all three agents through: **Seed** → **Diverge** → **Evaluate** → **Deepen** → **Frame** → **Decide**. Includes Carlini's "conclusion-first test." |
+| `/research-companion` | A structured multi-phase session that orchestrates all agents. Accepts a research topic/hypothesis **or** a document (manuscript, grant, proposal) and routes accordingly. |
 
 ### Principles
 
-8 research strategy principles organized into three categories (Problem Selection, Execution Strategy, Strategic Positioning) that guide the agents' evaluations.
-
-## Installation
-
-```bash
-claude plugin marketplace add https://github.com/andrehuang/research-companion
-claude plugin install research-companion@andrehuang-research-companion
-```
+11 research strategy principles organized into four categories (Problem Selection, Execution Strategy, Strategic Positioning, Biology-Specific) that guide the agents' evaluations.
 
 ## Usage
 
@@ -52,57 +61,48 @@ claude plugin install research-companion@andrehuang-research-companion
 Just describe your idea and ask for evaluation:
 
 ```
-I'm thinking about studying how LLM-generated code introduces subtle security
-vulnerabilities that pass standard code review. Can you evaluate this idea?
+Is it interesting to study clonal dynamics of B cells in tumor-adjacent tissue?
+Why should we invest in building a single-cell atlas of the human thymus?
+Has anyone mapped astrocyte subtypes in the aging human brain with spatial transcriptomics?
 ```
 
-The **Idea Critic** will evaluate across 7 dimensions and give you a verdict with the single most important question to resolve next.
+The **Idea Critic** will evaluate across 8 dimensions and give you a verdict with the single most important question to resolve next.
 
 ### Decide whether to continue a project
 
 ```
-I've been working on adversarial attacks against multimodal models for 3 months.
-I have some results but they're incremental. Two other groups just posted preprints
-in the same area. Should I continue?
+I've been working on characterizing microglia states in neurodegeneration for 3 months.
+I have some results but another group just posted a preprint in the same area.
+Should I continue?
 ```
 
-The **Research Strategist** will assess your competitive position, impact potential, and opportunity cost, then recommend Continue / Pivot / Kill.
+The **Research Strategist** will assess your competitive position, impact potential, opportunity cost, and recommend Continue / Pivot / Kill — including what public data already exists and what experiment to run next.
+
+### Critique a manuscript, grant, or proposal
+
+```
+/research-companion [paste abstract, specific aims, or give a file path]
+```
+
+The **Document Critic** will find gaps, missing controls, overclaiming, model system issues, and — critically — identify computational methods from other fields (optimal transport, causal inference, topological data analysis, tensor decomposition, control theory) that could extract substantially more from the data described.
 
 ### Run a full brainstorming session
 
 ```
-/research-brainstorm I'm interested in the intersection of program synthesis
-and scientific discovery
+/research-companion I'm interested in how tissue-resident immune cells in the brain
+respond differently to neuroinflammation than circulating immune cells
 ```
 
 This launches a 6-phase guided session:
 
-1. **Seed** — Understand your problem space, interests, and what bugs you about the field
-2. **Diverge** — Generate ideas, alternative framings, and cross-field connections
+1. **Seed** — Understand your problem space, background, data access, and what bugs you about the field
+2. **Diverge** — Generate ideas and cross-field connections (from physics, engineering, CS, math — not just adjacent biology)
 3. **Evaluate** — Stress-test the top 2-3 ideas with the Idea Critic
-4. **Deepen** — Check novelty, positioning, and competitive landscape
+4. **Deepen** — Check novelty, positioning, competitive landscape, and experimental design
 5. **Frame** — Write the abstract and conclusion as if the paper is done (the conclusion-first test: if you can't write a compelling conclusion now, the idea isn't ready)
 6. **Decide** — Final assessment with next steps (starting with the single riskiest assumption to test first)
 
-### Find cross-field connections
-
-```
-I work on differential privacy. What ideas from other fields
-(cryptography, economics, ecology, etc.) could lead to novel approaches?
-```
-
-The **Brainstormer** is designed to bridge distant fields — the kind of connection that led to applying differential cryptanalysis to model stealing, or semi-supervised learning to poisoning attacks.
-
-### Stress-test with a skeptical reviewer
-
-```
-Here's my draft abstract. Play devil's advocate — what would a skeptical
-Area Chair say?
-```
-
-The **Idea Critic** will identify the strongest counter-arguments, the weakest assumptions, and what a hostile but fair reviewer would target.
-
-## The 7 Evaluation Dimensions
+## The 8 Evaluation Dimensions
 
 When the Idea Critic evaluates your research idea, it assesses:
 
@@ -111,12 +111,13 @@ When the Idea Critic evaluates your research idea, it assesses:
 | 1 | **Novelty** | If you don't do this, how long until someone else does? |
 | 2 | **Impact** | Can you write a compelling conclusion *right now*, without doing the work? |
 | 3 | **Timing** | Is the field ready for this? Too early? Already crowded? |
-| 4 | **Feasibility** | What's the single riskiest assumption? Can you test it in a week? |
+| 4 | **Feasibility** | What's the riskiest assumption? Can you test it with existing public data first? |
 | 5 | **Competitive Landscape** | Who else is working on this? What's your unfair advantage? |
 | 6 | **The Nugget** | Can you state the key insight in one sentence? |
 | 7 | **Narrative Potential** | Can you tell a story that makes a skeptical reader care? |
+| 8 | **Experimental Design & Data** | Is there existing public data? Is the model system right? Is the study powered for biological variance? |
 
-## The 8 Research Strategy Principles
+## The 11 Research Strategy Principles
 
 These principles, derived from patterns in high-impact research, guide all agents in this plugin:
 
@@ -132,7 +133,12 @@ These principles, derived from patterns in high-impact research, guide all agent
 
 **Strategic Positioning**
 - **RS7: Comparative Advantage** — "Research space is high-dimensional; find your unique corner"
-- **RS8: Timing Awareness** — "Impact = skill x domain importance at this moment"
+- **RS8: Timing Awareness** — "Impact = skill × domain importance at this moment"
+
+**Biology-Specific**
+- **RS9: Open Science Value** — "Will this generate a community resource (atlas, dataset, tool) that enables downstream research for others?"
+- **RS10: Experimental Rigor Path** — "Check public data first before committing wet lab resources; design for biological variance, not just technical variance"
+- **RS11: Model System Validity** — "Does the model system (cell line, mouse, organoid, human tissue) actually support the claim being made?"
 
 ## Persistent Evaluations (NEW in v1.1)
 

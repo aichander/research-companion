@@ -46,14 +46,16 @@ Given a research idea (at any level of maturity — from vague intuition to deta
 - **Too late:** The area is crowded. Multiple strong groups are publishing. Incremental contributions get lost.
 - Use WebSearch to gauge current activity level and community interest.
 
-### 4. Feasibility (RS4: Fail Fast)
+### 4. Feasibility (RS4: Fail Fast + RS10: Experimental Rigor Path)
 
-**Key question:** What's the single riskiest assumption? Can you test it in a week?
+**Key question:** What's the single riskiest assumption? Is there existing public data that could test it before committing wet lab resources?
 
-- Identify the core technical assumption that must hold for the idea to work.
-- Assess whether a quick prototype or experiment could validate or kill this assumption.
-- Flag if the idea requires resources (compute, data, collaborators) the researcher may not have.
-- Distinguish between "hard but doable" and "depends on an unproven assumption."
+- Identify the core biological or technical assumption that must hold for the idea to work.
+- **Check public data first:** Before proposing new experiments, search whether existing resources (Allen Brain Atlas, Human Cell Atlas, GEO/NCBI, ImmPort, ENCODE, GTEx, CELLxGENE, UK Biobank, published single-cell atlases) already contain data that could validate or kill this assumption.
+- If wet lab work is required, estimate the realistic timeline — not days but weeks or months. Flag if the riskiest assumption requires a 3-month experiment when a 1-week computational analysis on existing data could answer the same question first.
+- Flag resource requirements: rare human tissue, animal model access, IACUC/IRB approval, specialized equipment, validated reagents.
+- Flag statistical power: does the proposed design have adequate sample size given expected biological variance (donor-to-donor, batch-to-batch)? A study powered for technical replicates but underpowered for biological replicates is a common failure mode.
+- Distinguish between "hard but doable," "requires access the researcher may not have," and "depends on an unproven biological assumption that must be tested first."
 
 ### 5. Competitive Landscape (RS7: Comparative Advantage)
 
@@ -77,10 +79,21 @@ Given a research idea (at any level of maturity — from vague intuition to deta
 
 **Key question:** Can you tell a story that makes a skeptical reader care?
 
-- Consider who the ideal reader is and what they currently believe.
+- Consider who the ideal reader is and what they currently believe. In biology this spans a wide range: a basic scientist at a top research institute, a translational researcher, a clinician, a funder reviewing an R01 or philanthropic grant.
 - Assess whether there's a natural narrative arc: a problem the community faces, a surprise or insight, and a resolution.
 - Flag if the introduction would require convincing readers of premises they don't yet accept (a high bar but not disqualifying).
-- Consider: Would you want to read this paper?
+- Consider: Would this change how people think about the biology — or does it only add one more data point to a known phenomenon?
+- **Community uplift test:** Does this work produce something the broader field can use — a resource, a tool, a reference dataset, a validated finding that unlocks downstream work? If yes, the narrative can lead with that.
+
+### 8. Experimental Design & Data Availability
+
+**Key question:** Is the proposed experiment the right one, and does the data needed already exist?
+
+- **Existing data audit:** Are there public datasets (Allen Brain Atlas, Human Cell Atlas, GEO, ImmPort, ENCODE, GTEx, CELLxGENE, published atlases) that already partially or fully address this question? Flag this explicitly — it is both a risk (someone could beat you to the analysis) and an opportunity (free validation).
+- **Model system appropriateness (RS11):** Is the proposed model system (cell line, mouse, organoid, primary human tissue) appropriate for the claim being made? What is lost in translation from the model to the biological system of interest?
+- **Cohort and sample design:** Is the proposed cohort well-matched to the question? Are controls adequate? Is there potential confounding (age, sex, medication, tissue collection variability)?
+- **Statistical power:** Is the sample size adequate for the biological effect size expected, accounting for donor-to-donor variance? Flag studies that appear well-powered but rely on technical replicates rather than biological replicates.
+- **Computational methods fit:** Is the most appropriate analytical framework being applied to the data? Flag when powerful methods from adjacent fields (optimal transport, topological data analysis, causal inference, tensor decomposition) could extract substantially more insight from the same dataset than the proposed standard approach.
 
 ## Output Format
 
@@ -101,6 +114,7 @@ Given a research idea (at any level of maturity — from vague intuition to deta
 | 5 | Competitive Landscape | [Crowded/Moderate/Open] | [1-2 sentence assessment] |
 | 6 | The Nugget | [Clear/Fuzzy/Missing] | [1-2 sentence assessment] |
 | 7 | Narrative | [Compelling/Workable/Weak] | [1-2 sentence assessment] |
+| 8 | Experimental Design & Data | [Strong/Needs Work/Weak] | [1-2 sentence assessment] |
 
 ### The Strongest Argument For
 [The single best reason to pursue this idea]
@@ -118,6 +132,15 @@ Given a research idea (at any level of maturity — from vague intuition to deta
 **The One Question to Resolve Next:**
 [The single most important thing to figure out before committing further. This should be testable — not "think more about it" but "run experiment X" or "search for Y" or "talk to Z."]
 ```
+
+## Venue and Community Context
+
+When assessing novelty, timing, and competitive landscape for biology research, check these sources:
+- **Preprints:** bioRxiv, medRxiv (biology moves fast through preprints — always check)
+- **Journals:** Nature, Science, Cell, Nature Neuroscience, Nature Immunology, Nature Methods, Neuron, Immunity, eLife, PNAS, Journal of Experimental Medicine, Journal of Neuroscience
+- **Funding signals:** NIH Reporter (active grants indicate the field is funded and competitive), Chan Zuckerberg Initiative, Wellcome Trust, Howard Hughes Medical Institute
+- **Conferences:** Society for Neuroscience (SfN), American Association of Immunologists (AAI), ISMB (computational biology), Cold Spring Harbor meetings, Keystone Symposia
+- **Consortia and atlas projects:** Human Cell Atlas, BRAIN Initiative, ENCODE, GTEx — check whether a larger consortium is already doing this at scale
 
 ## Prior Evaluation Check
 

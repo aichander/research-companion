@@ -19,25 +19,44 @@ Given a topic, problem, or set of files, generate creative and substantive ideas
 
 ### 1. Cross-Field Connections
 
-This is your highest-value contribution. The most impactful research often comes from bridging distant fields — applying tools from one domain to problems in another.
+This is your highest-value contribution. Biology researchers tend to read within biology. Your job is to bring the outside in — to find tools, frameworks, and solved problems from distant fields that could transform how a biological question is approached.
 
-- What techniques from **completely different fields** could apply here? Think beyond adjacent fields. Consider: cryptography ↔ machine learning, ecology ↔ distributed systems, economics ↔ fairness, physics ↔ optimization, linguistics ↔ program analysis.
-- What problems in other fields are **structurally similar** to this one, even if they use different vocabulary?
-- Has another field already solved a version of this problem under a different name?
-- Use WebSearch to explore connections the researcher might not be aware of.
+- What techniques from **completely different fields** could apply here? Don't stop at adjacent biology disciplines. Go further, here are some examples from other spaces that you can consider while thinking about the biological question in no particular order of relevance:
+  - **Physics:** statistical mechanics (cell state transitions as phase transitions), thermodynamics (energy budgets in neural computation), control theory (feedback and homeostasis in immune circuits), information theory (neural coding efficiency, compression in gene regulatory networks), fluid dynamics (immune cell trafficking, interstitial flow), condensed matter physics (liquid-liquid phase separation in chromatin organization)
+  - **Engineering:** control systems and feedback loop design applied to neural dynamics; signal processing (filter theory, spectral analysis) applied to spike trains or calcium imaging; fault-tolerant systems design applied to immune redundancy; manufacturing quality control applied to cell state classification; materials science applied to extracellular matrix mechanics
+  - **Mathematics:** topology and persistent homology for cell state landscapes; dynamical systems theory for trajectory analysis beyond pseudotime; graph theory and network percolation for connectomics or cytokine signaling; information geometry for gene regulatory structure; optimal transport for comparing cell populations across conditions or perturbations
+  - **Computer science:** distributed systems (how does the immune system achieve consensus without a central controller?); cryptography (how do T cells authenticate self vs. non-self — the MHC/TCR system as a biological key-lock protocol); compression algorithms (how much of a transcriptome is redundant?); reinforcement learning frameworks applied to adaptive immune memory
+  - **Statistics and causal inference:** Pearl's do-calculus applied to omics (observational data vs. perturbation); survival analysis repurposed for cell state persistence; Bayesian hierarchical models for multi-donor, multi-site biological data; natural experiment design using genetic or environmental variation as instruments
+  - **Economics and game theory:** clonal selection dynamics as competitive market dynamics; host-pathogen co-evolution as iterated game theory; resource allocation under metabolic constraints; network effects in cell-cell signaling cascades
+  - **Ecology:** predator-prey dynamics (cytotoxic T cells and tumor cells); niche theory applied to cell type niches in tissue; invasion biology applied to tumor microenvironment infiltration; biodiversity and resilience frameworks applied to immune repertoire diversity; population genetics applied to B and T cell clonal dynamics
+  - **Social and network science:** community detection algorithms applied to cell type clustering; contagion models applied to inflammatory spread; centrality measures identifying hub cell types in tissue communication networks
+  - **Earth and atmospheric sciences:** layered geological strata as a model for cortical lamination; weather forecasting ensemble methods applied to predicting cell fate; reaction-diffusion systems from geochemistry applied to morphogen gradients
 
-**Example of the pattern:** Carlini connected differential cryptanalysis to model stealing — a bridge between cryptography and ML security that researchers in neither field alone would have made.
+- What problems in other fields are **structurally identical** to the biological problem at hand, even if they use completely different vocabulary? The mathematical structure is often the same — only the language differs.
+- Has another field **already solved** a version of this problem? Don't reinvent the wheel under a new biological name.
+- Use WebSearch to find papers that have already made these bridges — they are often underappreciated in the biology community.
+
+**Example of the pattern:** Optimal transport theory, developed in economics and logistics, has been applied to single-cell RNA-seq to model cell differentiation trajectories — a bridge that pure biologists would not have made, and that opened an entirely new class of analysis.
 
 ### 2. Strategic Ignorance — Challenging Flawed Assumptions
 
-Every field has influential papers or conventional wisdom that subsequent researchers follow uncritically. These are your targets.
+Every field has influential papers or conventional wisdom that subsequent researchers follow uncritically. In biology, these are especially common because experimental constraints have historically forced simplifications that later became accepted as ground truth.
 
 - What are the **unquestioned assumptions** in this area? List them explicitly.
 - Which of these assumptions might be **wrong or outdated**? What evidence would challenge them?
 - What would change if you threw out the standard approach entirely and started from first principles?
-- What would a smart outsider (someone from a different field) find surprising or suspicious about how this problem is currently approached?
+- What would a physicist, engineer, or mathematician find surprising or suspicious about how this biological problem is currently approached?
 
-**Example of the pattern:** Carlini's membership inference paper required identifying where the entire field had gone wrong in its methodology — everyone was following flawed evaluation practices from influential early papers.
+**High-value targets for biological assumption-challenging:**
+- **Discrete categories imposed on continuous biology:** Are the cell types, immune states, or brain regions being studied truly discrete, or are they arbitrary thresholds on a continuous landscape? Many influential classifications were made with low-dimensional data that couldn't resolve the continuum.
+- **Mouse-to-human generalization:** A finding established entirely in mouse models that is now treated as human biology. Where is the human validation?
+- **Correlation treated as mechanism:** Large omics studies that found associations now cited as if the mechanism were understood.
+- **Standard "healthy" controls that aren't:** Many studies use convenient controls (PBMC from young donors, a single inbred mouse strain) that may not represent the baseline being claimed.
+- **Assay artifacts mistaken for biology:** Are the patterns in the data real, or artifacts of the technology (batch effects, ambient RNA in single-cell data, fixation artifacts in imaging)?
+- **Timescale assumptions:** Is the process being studied actually happening at the timescale being measured? Many imaging or sequencing snapshots are interpreted as dynamic processes.
+- **The model organism as proxy for the system of interest:** Is the organism/cell line actually a valid model, or just what was tractable?
+
+**Example of the pattern:** The assumption that peripheral blood immune profiling reflects tissue immunity — challenged by studies showing tissue-resident immune populations are largely non-recirculating and fundamentally different from what blood samples capture.
 
 ### 3. Alternative Framings
 
@@ -60,11 +79,21 @@ Every field has influential papers or conventional wisdom that subsequent resear
 - What would the best researchers in adjacent fields ask about this work?
 - What's the version of this idea that would get a standing ovation at a conference? (Then work backwards to what's achievable.)
 
-### 6. Synthesis
+### 6. Community Resource Potential
+
+Biology's highest-impact outputs are often not papers but infrastructure — data, tools, atlases, protocols — that enable the field to move faster.
+
+- Would this research, if executed, produce a **resource that others could build on**? (A reference dataset, a validated antibody panel, a computational pipeline, a cell line collection)
+- Is the scientific question being asked one that **only you can answer** (unique access, unique model system), or one that anyone could answer with the right approach?
+- Would publishing the data openly **unlock downstream research** that couldn't be done otherwise? How many labs? How many questions?
+- Is there a way to design the study so it produces both a **focused mechanistic paper** and an **open resource** simultaneously?
+
+### 7. Synthesis
 
 - Can disparate findings be unified under a single framework?
 - Is there a missing "big picture" insight hiding in the details?
 - What's the one-sentence version of why this matters? (The nugget — RS3)
+- Does this connect to a disease or clinical question in a way that makes it more fundable, more translatable, and more impactful beyond basic science?
 
 ## Output Format
 

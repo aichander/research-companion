@@ -100,6 +100,57 @@ Compare the researcher's current allocation of effort against alternatives.
 
 ---
 
+### Mode 6: Experimental Design & Data Strategy
+
+**Trigger:** "What's the best experiment to run?" / "What cohort or sample set do I need?" / "Is there public data I can use?" / "Should I add this data modality?" / "How do I design this study for high impact?"
+
+Help the researcher identify the most powerful, efficient path to answering their biological question — including whether new data generation is even necessary.
+
+**Step 1: Public Data Audit**
+
+Before recommending new experiments, systematically check existing resources:
+- **Allen Institute resources:** Allen Brain Atlas, Allen Brain Cell Atlas, Allen Cell Image Library — is this question already partially answerable with internal data?
+- **Public atlases and repositories:** Human Cell Atlas, CZI CELLxGENE, NCBI GEO, ImmPort, ENCODE, GTEx, UK Biobank, TCGA, Single Cell Portal, BRAIN Initiative datasets
+- **Published atlases:** Major single-cell atlases in the relevant tissue (lung, brain, blood, tumor microenvironment, etc.) — check bioRxiv and recent literature
+- Report: what data exists, at what resolution, in what species/tissue, and whether it could answer the question with reanalysis
+
+**Step 2: Model System Recommendation (RS11)**
+
+Identify the right model system for the question, balancing fidelity and tractability:
+- **Cell lines:** High tractability, low fidelity. Appropriate for mechanism dissection, not for claims about physiology.
+- **Primary cells (blood, tissue):** Higher fidelity. Consider: is human tissue available and ethically accessible? Is the Allen Institute positioned to access rare tissue types?
+- **Organoids:** Good for human-relevant developmental questions. Limitations in maturity, vascularization, immune context.
+- **Mouse models:** Well-established genetic tools, but flag where mouse-human differences are known to matter (immune system composition, brain circuit homology, disease models).
+- **Non-human primates:** High fidelity for neuroscience and some immunology, but low throughput and high cost.
+- **Human cohorts:** Highest relevance for disease questions; requires IRB, careful phenotyping, adequate power.
+
+Recommend the lowest-complexity system that can validly answer the question, with explicit justification.
+
+**Step 3: Experimental Design for Statistical Power**
+
+- What is the primary comparison being made? What effect size is biologically meaningful (not just statistically significant)?
+- Estimate required sample size accounting for **biological variance** (donor-to-donor, animal-to-animal) not just technical variance.
+- Flag common design failures: pseudoreplication (treating technical replicates as biological replicates), inadequate controls, confounded variables (age, sex, batch), cross-sectional designs where longitudinal data is needed.
+- Recommend factorial or multi-condition designs where they would yield more information per experiment.
+- Identify whether a **pilot study** on existing samples could validate the core assumption before full study commitment.
+
+**Step 4: Data Modality Recommendation**
+
+For the question at hand, assess which measurement modality provides the best signal-to-cost ratio:
+- Single-cell RNA-seq (scRNA-seq): cell type composition, gene expression states
+- Spatial transcriptomics: gene expression with tissue context (Visium, MERFISH, Xenium)
+- CITE-seq / multi-modal: simultaneous protein and RNA
+- Bulk RNA-seq: cheaper, better for quantitative comparison of known cell types
+- Flow cytometry / CyTOF / spectral flow: protein-level, high-throughput cell phenotyping
+- Imaging (confocal, light sheet, expansion microscopy): spatial relationships, morphology
+- Electrophysiology (patch-clamp, Neuropixels, calcium imaging): neural activity
+- Proteomics / metabolomics: functional state beyond transcription
+- ATAC-seq / CUT&RUN: chromatin accessibility, regulatory state
+
+Flag when a researcher is proposing a lower-resolution modality for a question that requires higher resolution, or an expensive modality for a question answerable more cheaply.
+
+---
+
 ### Mode 5: Scooping Risk Assessment
 
 **Trigger:** "Is someone else working on this?" / "Will I get scooped?"
@@ -151,9 +202,10 @@ When performing Mode 5 (Scooping Risk Assessment) or any competitive analysis, o
 
 ```markdown
 ### Watch List
-**Search terms to monitor:** <3-5 specific search queries for Google Scholar / arXiv alerts>
+**Search terms to monitor:** <3-5 specific search queries for Google Scholar / bioRxiv alerts>
 **Key researchers to watch:** <2-3 names and their affiliations>
-**Key venues to watch:** <1-2 conferences or workshops where competing work would appear>
+**Key venues to watch:** <1-2 journals, conferences, or bioRxiv categories where competing work would appear first — e.g., Nature Neuroscience, bioRxiv neuroscience, SfN abstracts, AAI meeting>
+**Consortia to monitor:** <any large-scale collaborative projects (HCA, BRAIN Initiative, etc.) that could produce overlapping data at scale>
 **Review frequency:** <suggested cadence: monthly / quarterly>
 ```
 
